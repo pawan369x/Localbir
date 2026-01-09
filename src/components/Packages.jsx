@@ -6,59 +6,59 @@ const packages = [
     {
         id: 1,
         title: 'Sky High',
-        subtitle: 'Paragliding Only',
+        subtitle: 'Paragliding (All Inclusive)',
         price: '₹3,000',
-        duration: '2-3 Hours',
+        duration: '15-20 Mins Flight',
         icon: <Wind className="w-6 h-6 text-indigo-500" />,
         features: [
-            '15-20 Mins Flight',
-            'Transport to Takeoff Included',
+            'Includes GoPro Video 🎥',
+            'Transportation to Takeoff 🚙',
             'Certified Pilot & Gear',
-            'GoPro Video (Add-on)',
+            'Stunts Available (+₹500)',
             'Instant Video Transfer'
         ],
-        isPopular: false,
+        isPopular: true,
         image: 'https://images.unsplash.com/photo-1495574341103-67c4cb033877?auto=format&fit=crop&q=80&w=800'
     },
     {
         id: 2,
-        title: 'The Weekend Escape',
-        subtitle: 'Complete Package (Customizable)',
-        price: 'Best Value', // Display text instead of fixed price
-        duration: '1 Night / 2 Days',
-        icon: <Sparkles className="w-6 h-6 text-white" />,
-        // New Data Structure for Bill Breakdown
-        billItems: [
-            { name: 'Paragliding (Transport Inc.)', price: '₹3,000' },
-            { name: 'Camping (Food Included)', price: '₹2,500' },
-            { name: 'Bonfire Night', price: '₹500' },
-        ],
-        note: 'Dinner & Breakfast menu depends on client preference.',
-        isPopular: true, // This enables the "Most Popular" design
-        image: 'https://images.unsplash.com/photo-1624300603538-1207400f4116?auto=format&fit=crop&q=80&w=800'
-    },
-    {
-        id: 3,
-        title: 'Nature Retreat',
-        subtitle: 'Camping Only',
-        price: '₹2,500',
-        duration: 'Overnight Stay',
+        title: 'Stay & Relax',
+        subtitle: 'Camping or Hotel Stay',
+        price: 'From ₹1,500',
+        duration: 'Per Night',
         icon: <Tent className="w-6 h-6 text-emerald-500" />,
         features: [
-            'Luxury Dome Tents',
-            'Dinner & Breakfast Included',
-            'Bonfire with Music',
-            'Nature Walk',
-            'Clean Washrooms'
+            'Camping (₹1500 - ₹2000)',
+            'Budget Hotel (₹1500)',
+            'Premium Hotel (₹3000)',
+            'Luxury Stay (₹5500)',
+            'Bonfire (for Camping)'
         ],
         isPopular: false,
         image: 'https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?auto=format&fit=crop&q=80&w=800'
+    },
+    {
+        id: 3,
+        title: 'Extreme Adventures',
+        subtitle: 'More Than Flying',
+        price: 'Various',
+        duration: 'Activity Based',
+        icon: <Sparkles className="w-6 h-6 text-orange-500" />,
+        features: [
+            'Bungee Jumping (₹3500)',
+            'Sky Cycling (₹2500)',
+            'Waterfall Trek Guide (₹200/p)',
+            'Day Hiking Guide (₹1500)',
+            'Village Walks'
+        ],
+        isPopular: false,
+        image: 'https://images.unsplash.com/photo-1533587851505-d119e13fa0d7?auto=format&fit=crop&q=80&w=800'
     }
 ];
 
-const Packages = () => {
+const Packages = ({ onBookClick }) => {
     return (
-        <section id="packages" className="py-24 bg-slate-50 relative overflow-hidden">
+        <section id="paragliding" className="py-24 bg-slate-50 relative overflow-hidden">
             {/* Background Blobs (Clean Style) */}
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
                 <div className="absolute top-20 left-10 w-72 h-72 bg-sky-200 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-blob" />
@@ -138,55 +138,29 @@ const Packages = () => {
                                     <p className="text-slate-500 text-sm font-medium">{pkg.subtitle}</p>
                                 </div>
 
-                                {/* Dynamic Content Rendering */}
-                                {pkg.isPopular ? (
-                                    /* === BILL BREAKDOWN LAYOUT (For Middle Card) === */
-                                    <div className="flex-1">
-                                        <div className="bg-slate-50 rounded-xl p-4 border border-slate-100 mb-4">
-                                            <div className="space-y-3">
-                                                {pkg.billItems.map((item, i) => (
-                                                    <div key={i} className="flex justify-between items-center text-sm border-b border-dashed border-slate-200 pb-2 last:border-0 last:pb-0">
-                                                        <span className="text-slate-600 font-medium flex items-center gap-2">
-                                                            <Check size={14} className="text-sky-500" />
-                                                            {item.name}
-                                                        </span>
-                                                        <span className="font-bold text-slate-800">{item.price}</span>
-                                                    </div>
-                                                ))}
+                                {/* Unified Content Rendering */}
+                                <div className="mb-6 flex items-baseline gap-1">
+                                    <span className="text-4xl font-black text-slate-900">{pkg.price}</span>
+                                    {/* Show "/ person" or "/ night" only if it makes sense contextually, or generic */}
+                                    <span className="text-slate-400 font-medium text-sm ml-2">{pkg.duration}</span>
+                                </div>
+
+                                <div className="w-full h-px bg-slate-100 mb-6" />
+
+                                <ul className="space-y-3 mb-8 flex-1">
+                                    {pkg.features.map((feature, i) => (
+                                        <li key={i} className="flex items-start gap-3 text-sm text-slate-600 font-medium">
+                                            <div className="mt-0.5 rounded-full bg-slate-100 p-0.5 text-slate-500">
+                                                <Check size={12} strokeWidth={3} />
                                             </div>
-                                        </div>
-
-                                        {/* Client Note */}
-                                        <div className="flex items-start gap-2 text-xs text-amber-600 bg-amber-50 p-3 rounded-lg mb-6">
-                                            <Utensils size={14} className="mt-0.5 shrink-0" />
-                                            {pkg.note}
-                                        </div>
-                                    </div>
-                                ) : (
-                                    /* === STANDARD LAYOUT (For Left/Right Cards) === */
-                                    <>
-                                        <div className="mb-6 flex items-baseline gap-1">
-                                            <span className="text-4xl font-black text-slate-900">{pkg.price}</span>
-                                            {pkg.price !== 'Best Value' && <span className="text-slate-400 font-medium">/ person</span>}
-                                        </div>
-
-                                        <div className="w-full h-px bg-slate-100 mb-6" />
-
-                                        <ul className="space-y-3 mb-8 flex-1">
-                                            {pkg.features.map((feature, i) => (
-                                                <li key={i} className="flex items-start gap-3 text-sm text-slate-600 font-medium">
-                                                    <div className="mt-0.5 rounded-full bg-slate-100 p-0.5 text-slate-500">
-                                                        <Check size={12} strokeWidth={3} />
-                                                    </div>
-                                                    {feature}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </>
-                                )}
+                                            {feature}
+                                        </li>
+                                    ))}
+                                </ul>
 
                                 {/* Action Button */}
                                 <button
+                                    onClick={onBookClick}
                                     className={`w-full py-4 rounded-xl font-bold transition-all transform active:scale-95
                                         ${pkg.isPopular
                                             ? 'bg-sky-500 hover:bg-sky-600 text-white shadow-lg shadow-sky-500/30'

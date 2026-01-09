@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Facebook, Instagram, Youtube, Twitter, MapPin, Phone, Mail, ArrowUp, Send } from 'lucide-react';
 
-const Footer = () => {
+const Footer = ({ onBookClick }) => {
 
     // Scroll to Top Function
     const scrollToTop = () => {
@@ -46,6 +46,7 @@ const Footer = () => {
                         </div>
 
                         <motion.button
+                            onClick={onBookClick}
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             className="bg-white text-blue-700 hover:text-blue-800 hover:bg-sky-50 py-4 px-10 rounded-full font-bold text-lg shadow-xl shadow-blue-900/40 flex items-center gap-2 group transition-all"

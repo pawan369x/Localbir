@@ -1,25 +1,50 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ChevronRight, Mountain, Coffee, BedDouble, MapPin, ArrowRight, Wind, Users } from 'lucide-react';
+import { Menu, X, ChevronRight, Mountain, Coffee, BedDouble, MapPin, ArrowRight, Wind, Users, Sun, Cloud } from 'lucide-react';
 
+// --- ADVANCED LIVE STATUS BAR ---
 const LiveStatus = () => (
-    <div className="bg-sky-50 text-sky-900 py-2 px-4 flex justify-between items-center text-xs md:text-sm border-b border-sky-100 relative z-50">
-        <div className="flex gap-4">
-            <span className="flex items-center text-sky-600 font-bold animate-pulse">
-                <div className="w-2 h-2 bg-sky-500 rounded-full mr-2"></div>
-                FLYING: ON
-            </span>
-            <span className="hidden md:flex items-center text-sky-800">
-                <Wind size={14} className="mr-1" /> Wind: 12km/h (Perfect)
-            </span>
+    <div className="bg-sky-50 text-sky-900 h-9 flex items-center justify-center text-xs md:text-sm border-b border-sky-100 relative z-[60] overflow-hidden">
+
+        {/* Desktop View (Static) */}
+        <div className="hidden md:flex justify-between w-full max-w-7xl px-8">
+            <div className="flex gap-6">
+                <span className="flex items-center text-emerald-600 font-bold">
+                    <span className="relative flex h-2 w-2 mr-2">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    </span>
+                    FLYING STATUS: OPEN
+                </span>
+                <span className="flex items-center text-sky-700">
+                    <Wind size={14} className="mr-1.5" /> Wind: 12km/h (Perfect)
+                </span>
+                <span className="flex items-center text-amber-600">
+                    <Sun size={14} className="mr-1.5" /> Temp: 18°C
+                </span>
+            </div>
+            <div className="flex items-center text-slate-500 font-medium">
+                <Users size={14} className="mr-1.5" /> Live Crowd: <span className="text-orange-500 ml-1 font-bold">Low</span>
+            </div>
         </div>
-        <div className="flex items-center text-orange-500">
-            <Users size={14} className="mr-1" /> Crowd: Low
+
+        {/* Mobile View (Animated Ticker) */}
+        <div className="md:hidden w-full overflow-hidden">
+            <motion.div
+                animate={{ x: ["100%", "-100%"] }}
+                transition={{ repeat: Infinity, duration: 15, ease: "linear" }}
+                className="whitespace-nowrap flex gap-8 items-center"
+            >
+                <span className="flex items-center text-emerald-600 font-bold">🟢 FLYING: OPEN</span>
+                <span className="flex items-center text-sky-700">🌬️ Wind: 12km/h</span>
+                <span className="flex items-center text-amber-600">☀️ Temp: 18°C</span>
+                <span className="flex items-center text-orange-500">👥 Crowd: Low</span>
+            </motion.div>
         </div>
     </div>
 );
 
-const Navbar = () => {
+const Navbar = ({ onBookClick }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [hoveredIndex, setHoveredIndex] = useState(null);
@@ -33,7 +58,7 @@ const Navbar = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    // Body scroll lock jab mobile menu open ho
+    // Body scroll lock
     useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = 'hidden';
@@ -44,48 +69,45 @@ const Navbar = () => {
 
     const navLinks = [
         { name: 'Adventures', href: '#paragliding', icon: <Mountain size={20} />, desc: 'Fly high in Bir' },
-        { name: 'Best Cafes', href: '#cafes', icon: <Coffee size={20} />, desc: 'Taste the local food' },
-        { name: 'Stays', href: '#stays', icon: <BedDouble size={20} />, desc: 'Cozy hostels & hotels' },
+        { name: 'Best Cafes', href: '#guide', icon: <Coffee size={20} />, desc: 'Taste the local food' },
+        { name: 'Stays', href: '#paragliding', icon: <BedDouble size={20} />, desc: 'Cozy hostels & hotels' },
         { name: 'Local Guide', href: '#guide', icon: <MapPin size={20} />, desc: 'Hidden waterfalls' },
     ];
 
-    // Colors
-    const textColor = scrolled ? 'text-gray-700' : 'text-white';
-    const logoColor = scrolled ? 'text-gray-900' : 'text-white';
+    // Dynamic Colors
+    const isTransparent = !scrolled && !isOpen;
+    const textColor = isTransparent ? 'text-white' : 'text-slate-800';
 
-    // Mobile Menu Animation Variants
+    // Animation Variants
     const menuVars = {
-        initial: { scaleY: 0 },
+        initial: { clipPath: "circle(0% at 100% 0%)" }, // Cool circle reveal effect
         animate: {
-            scaleY: 1,
-            transition: { duration: 0.5, ease: [0.12, 0, 0.39, 0] }
+            clipPath: "circle(150% at 100% 0%)",
+            transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] }
         },
         exit: {
-            scaleY: 0,
-            transition: { delay: 0.5, duration: 0.5, ease: [0.22, 1, 0.36, 1] }
+            clipPath: "circle(0% at 100% 0%)",
+            transition: { delay: 0.1, duration: 0.5, ease: [0.22, 1, 0.36, 1] }
         }
     };
 
     const containerVars = {
-        initial: { transition: { staggerChildren: 0.09, staggerDirection: -1 } },
-        open: { transition: { delayChildren: 0.3, staggerChildren: 0.09, staggerDirection: 1 } }
+        initial: { transition: { staggerChildren: 0.05, staggerDirection: -1 } },
+        open: { transition: { delayChildren: 0.2, staggerChildren: 0.07, staggerDirection: 1 } }
     };
 
-    const mobileLinkVars = {
-        initial: { y: "30vh", transition: { duration: 0.5, ease: [0.37, 0, 0.63, 1] } },
-        open: { y: 0, transition: { duration: 0.7, ease: [0, 0.55, 0.45, 1] } }
+    const linkVars = {
+        initial: { y: 20, opacity: 0 },
+        open: { y: 0, opacity: 1, transition: { duration: 0.4, ease: "easeOut" } }
     };
 
     return (
-        <header className="fixed w-full top-0 z-50 flex flex-col">
+        <header className="fixed w-full top-0 z-50 flex flex-col font-sans">
+
             <LiveStatus />
+
             <motion.nav
-                initial={{ y: -100 }}
-                animate={{ y: 0 }}
-                transition={{ duration: 0.5 }}
-                className={`w-full transition-all duration-300 ${scrolled
-                    ? 'bg-white/80 backdrop-blur-xl border-b border-sky-100/50 py-3 shadow-sm'
-                    : 'bg-transparent py-5'
+                className={`w-full transition-all duration-300 ${scrolled ? 'bg-white/90 backdrop-blur-xl border-b border-slate-200/50 py-3 shadow-sm' : 'bg-transparent py-5'
                     }`}
             >
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -93,14 +115,14 @@ const Navbar = () => {
 
                         {/* --- LOGO --- */}
                         <div className="flex-shrink-0 z-50 relative">
-                            <span className={`text-2xl font-black tracking-tighter transition-colors duration-300 ${isOpen ? 'text-gray-900' : logoColor}`}>
+                            <a href="/" className={`text-2xl font-black tracking-tighter transition-colors duration-300 ${isOpen ? 'text-slate-900' : textColor}`}>
                                 Local<span className="text-sky-500">Bir.</span>
-                            </span>
+                            </a>
                         </div>
 
-                        {/* --- DESKTOP MENU (Hidden on Mobile & Tablet) --- */}
+                        {/* --- DESKTOP MENU --- */}
                         <div className="hidden lg:block">
-                            <div className="flex items-center space-x-2">
+                            <div className="flex items-center space-x-1">
                                 {navLinks.map((link, index) => (
                                     <a
                                         key={link.name}
@@ -112,15 +134,13 @@ const Navbar = () => {
                                         {hoveredIndex === index && (
                                             <motion.span
                                                 layoutId="hoverBackground"
-                                                className={`absolute inset-0 rounded-full -z-10 ${scrolled ? 'bg-sky-100' : 'bg-white/20'}`}
+                                                className={`absolute inset-0 rounded-full -z-10 ${scrolled ? 'bg-slate-100' : 'bg-white/20'}`}
                                                 initial={{ opacity: 0 }}
                                                 animate={{ opacity: 1 }}
                                                 exit={{ opacity: 0 }}
                                             />
                                         )}
-                                        <span className="flex items-center gap-2">
-                                            {link.name}
-                                        </span>
+                                        {link.name}
                                     </a>
                                 ))}
                             </div>
@@ -131,26 +151,31 @@ const Navbar = () => {
                             <motion.button
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
+                                onClick={onBookClick}
                                 className="bg-sky-500 hover:bg-sky-600 text-white font-bold py-2.5 px-6 rounded-full text-sm flex items-center gap-2 shadow-lg shadow-sky-500/30 transition-all"
                             >
                                 Book Paragliding <ChevronRight size={16} />
                             </motion.button>
                         </div>
 
-                        {/* --- MOBILE TOGGLE --- */}
-                        <div className="lg:hidden z-50">
+                        {/* --- MOBILE TOGGLE BUTTON (Corrected Logic) --- */}
+                        <div className="lg:hidden z-[60]"> {/* High Z-Index to stay above menu */}
                             <button
                                 onClick={() => setIsOpen(!isOpen)}
-                                className={`p-2 rounded-full transition-colors ${isOpen ? 'text-gray-900 bg-gray-100' : `${textColor} hover:bg-white/20`}`}
+                                className={`p-2 rounded-full transition-all active:scale-90 ${isOpen
+                                    ? 'bg-slate-100 text-slate-900' // Dark text when menu open
+                                    : `${isTransparent ? 'bg-black/20 text-white' : 'bg-slate-100 text-slate-900'}`
+                                    }`}
                             >
-                                {isOpen ? <X size={28} /> : <Menu size={28} />}
+                                {isOpen ? <X size={24} /> : <Menu size={24} />}
                             </button>
                         </div>
+
                     </div>
                 </div>
             </motion.nav>
 
-            {/* --- CREATIVE FULL SCREEN MOBILE MENU --- */}
+            {/* --- MOBILE MENU OVERLAY --- */}
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
@@ -158,52 +183,63 @@ const Navbar = () => {
                         initial="initial"
                         animate="animate"
                         exit="exit"
-                        className="fixed inset-0 bg-white z-40 origin-top flex flex-col justify-center px-6 lg:hidden"
-                        style={{ top: '0' }} // Ensure it covers from top
+                        className="fixed inset-0 bg-white z-40 flex flex-col lg:hidden pt-24 px-6 h-screen"
                     >
                         <motion.div
                             variants={containerVars}
                             initial="initial"
                             animate="open"
                             exit="initial"
-                            className="flex flex-col gap-6"
+                            className="flex flex-col gap-2 h-full"
                         >
+                            {/* Menu Label */}
+                            <motion.span variants={linkVars} className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">
+                                Menu
+                            </motion.span>
+
+                            {/* Links */}
                             {navLinks.map((link) => (
-                                <div key={link.name} className="overflow-hidden">
-                                    <motion.a
-                                        variants={mobileLinkVars}
-                                        href={link.href}
-                                        onClick={() => setIsOpen(false)}
-                                        className="group flex items-center justify-between border-b border-gray-100 pb-4"
-                                    >
-                                        <div className="flex items-center gap-4">
-                                            <div className="p-3 bg-sky-50 text-sky-600 rounded-xl group-active:scale-95 transition-transform">
-                                                {link.icon}
-                                            </div>
-                                            <div>
-                                                <span className="block text-2xl font-bold text-gray-800 group-hover:text-sky-600 transition-colors">
-                                                    {link.name}
-                                                </span>
-                                                <span className="text-sm text-gray-400 font-medium">
-                                                    {link.desc}
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div className="text-gray-300 group-hover:text-sky-500 group-hover:-rotate-45 transition-all duration-300">
-                                            <ArrowRight size={24} />
-                                        </div>
-                                    </motion.a>
-                                </div>
+                                <motion.a
+                                    key={link.name}
+                                    variants={linkVars}
+                                    href={link.href}
+                                    onClick={() => setIsOpen(false)}
+                                    className="group flex items-center p-4 rounded-2xl hover:bg-slate-50 transition-colors"
+                                >
+                                    <div className="p-3 bg-white border border-slate-100 text-slate-600 rounded-xl shadow-sm group-hover:text-sky-500 group-hover:scale-110 transition-all mr-4">
+                                        {link.icon}
+                                    </div>
+                                    <div className="flex-1">
+                                        <span className="block text-xl font-bold text-slate-800 group-hover:text-sky-600">
+                                            {link.name}
+                                        </span>
+                                        <span className="text-xs text-slate-400 font-medium">
+                                            {link.desc}
+                                        </span>
+                                    </div>
+                                    <ChevronRight className="text-slate-300 group-hover:text-sky-500 group-hover:translate-x-1 transition-all" size={20} />
+                                </motion.a>
                             ))}
 
+                            {/* Divider */}
+                            <motion.div variants={linkVars} className="h-px w-full bg-slate-100 my-4" />
+
                             {/* Mobile CTA */}
-                            <div className="overflow-hidden mt-4">
-                                <motion.div variants={mobileLinkVars}>
-                                    <button className="w-full bg-sky-500 text-white text-lg font-bold py-4 rounded-2xl shadow-xl shadow-sky-500/20 active:scale-95 transition-transform flex items-center justify-center gap-2">
-                                        Book Paragliding Now <ChevronRight />
-                                    </button>
-                                </motion.div>
-                            </div>
+                            <motion.div variants={linkVars} className="mt-auto mb-8">
+                                <button
+                                    onClick={() => {
+                                        setIsOpen(false);
+                                        onBookClick();
+                                    }}
+                                    className="w-full bg-sky-500 text-white text-lg font-bold py-4 rounded-2xl shadow-xl shadow-sky-500/20 active:scale-95 transition-transform flex items-center justify-center gap-2"
+                                >
+                                    Book Adventure Now <ArrowRight size={20} />
+                                </button>
+                                <p className="text-center text-slate-400 text-xs mt-4">
+                                    Trusted by 5000+ travelers
+                                </p>
+                            </motion.div>
+
                         </motion.div>
                     </motion.div>
                 )}
