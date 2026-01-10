@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Facebook, Instagram, Youtube, Twitter, MapPin, Phone, Mail, ArrowUp, Send } from 'lucide-react';
 
@@ -114,11 +115,11 @@ const Footer = ({ onBookClick }) => {
                                 Explore <span className="h-1 w-1 rounded-full bg-sky-500"></span>
                             </h3>
                             <ul className="space-y-4">
-                                <FooterLink text="Home" />
-                                <FooterLink text="Paragliding" />
-                                <FooterLink text="Camping" />
-                                <FooterLink text="About Us" />
-                                <FooterLink text="Gallery" />
+                                <FooterLink text="Home" to="/" />
+                                <FooterLink text="Paragliding" to="/adventures" />
+                                <FooterLink text="Camping" to="/adventures" />
+                                <FooterLink text="About Us" to="/about" />
+                                <FooterLink text="Plan Trip" to="/plan-trip" />
                             </ul>
                         </div>
 
@@ -128,11 +129,11 @@ const Footer = ({ onBookClick }) => {
                                 Activities <span className="h-1 w-1 rounded-full bg-orange-500"></span>
                             </h3>
                             <ul className="space-y-4">
-                                <FooterLink text="Bungee Jumping" />
-                                <FooterLink text="Sky Cycling" />
-                                <FooterLink text="Waterfall Trek" />
-                                <FooterLink text="Rajgundha Trek" />
-                                <FooterLink text="Monastery" />
+                                <FooterLink text="Bungee Jumping" to="/adventures" />
+                                <FooterLink text="Sky Cycling" to="/adventures" />
+                                <FooterLink text="Waterfall Trek" to="/adventures" />
+                                <FooterLink text="Rajgundha Trek" to="/adventures" />
+                                <FooterLink text="Monastery" to="/guide" />
                             </ul>
                         </div>
 
@@ -202,12 +203,12 @@ const SocialIcon = ({ icon, href, color }) => (
     </a>
 );
 
-const FooterLink = ({ text }) => (
+const FooterLink = ({ text, to = "#" }) => (
     <li>
-        <a href="#" className="text-slate-400 hover:text-sky-400 transition-colors flex items-center gap-2 group text-[15px]">
+        <Link to={to} className="text-slate-400 hover:text-sky-400 transition-colors flex items-center gap-2 group text-[15px]">
             <span className="w-1.5 h-1.5 rounded-full bg-slate-700 group-hover:bg-sky-500 transition-colors"></span>
             <span className="group-hover:translate-x-1 transition-transform duration-300">{text}</span>
-        </a>
+        </Link>
     </li>
 );
 

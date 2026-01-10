@@ -1,30 +1,38 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import BannerCarousel from '../components/BannerCarousel';
-import Packages from '../components/Packages';
-import TripCalculator from '../components/TripCalculator';
 import WhyChooseUs from '../components/WhyChooseUs';
 import JourneyRoadmap from '../components/JourneyRoadmap';
+import MysteryGift from '../components/MysteryGift';
 import FAQ from '../components/FAQ';
-import { useOutletContext } from 'react-router-dom';
+// import { useOutletContext } from 'react-router-dom';
+
+import { AnimatePresence } from 'framer-motion';
 
 const Home = () => {
-    const { onBookClick } = useOutletContext(); // Access context provided by Layout
+    // const { onBookClick } = useOutletContext();
+    const [showMysteryGift, setShowMysteryGift] = useState(false);
 
-    // Scroll to top on mount
     useEffect(() => {
         window.scrollTo(0, 0);
+
+        // Trigger Mystery Gift Popup after 2 seconds
+        const timer = setTimeout(() => {
+            setShowMysteryGift(true);
+        }, 2000);
+
+        return () => clearTimeout(timer);
     }, []);
 
     return (
         <>
             <BannerCarousel />
-            <div id="paragliding">
-                <Packages onBookClick={onBookClick} />
-            </div>
-            <TripCalculator onBookClick={onBookClick} />
             <WhyChooseUs />
             <JourneyRoadmap />
+            <AnimatePresence>
+                {showMysteryGift && <MysteryGift onClose={() => setShowMysteryGift(false)} />}
+            </AnimatePresence>
             <FAQ />
+            {/* You can add teasers for Packages or Guide here if needed */}
         </>
     );
 };

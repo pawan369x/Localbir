@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Users, Calendar, Check, Calculator, RefreshCw } from 'lucide-react';
+import { Users, Calendar, Check, Calculator } from 'lucide-react';
 
 import BudgetModal from './BudgetModal';
 
-const TripCalculator = ({ onBookClick }) => {
+const TripCalculator = () => {
 
     const [isBudgetPopupOpen, setIsBudgetPopupOpen] = useState(false);
 
@@ -23,7 +23,7 @@ const TripCalculator = ({ onBookClick }) => {
         hikingGuide: false
     });
 
-    const [totalCost, setTotalCost] = useState(0);
+    // const [totalCost, setTotalCost] = useState(0); // Derived state utilized instead
 
     // Pricing Config (Updated)
     const PRICES = {
@@ -52,11 +52,11 @@ const TripCalculator = ({ onBookClick }) => {
     };
 
     // Calculate Total
-    useEffect(() => {
+    // Calculate Total (Derived State)
+    const calculateTotal = () => {
         let total = 0;
 
-        // 1. Accommodation Cost (Price * Travelers * (Days - 1))
-        // Assuming Stay is needed for (Days - 1) nights.
+        // 1. Accommodation Cost
         const nights = days > 1 ? days - 1 : 0;
         const stayCost = PRICES.stays[stayType] * travelers * nights;
         total += stayCost;
@@ -73,16 +73,16 @@ const TripCalculator = ({ onBookClick }) => {
         if (activities.bungee) total += PRICES.bungee * travelers;
         if (activities.skycycling) total += PRICES.skycycling * travelers;
 
-        // 4. Waterfall Guide (Per Person)
+        // 4. Waterfall Guide
         if (activities.waterfallGuide) total += PRICES.waterfallGuide * travelers;
 
-        // 5. Hiking Guide (Fixed Cost for the group per day? Or flat? Let's assume flat 1500 per day of hiking.
-        // But here we don't know how many days hiking. Let's assume if checked, it's for 1 day.)
+        // 5. Hiking Guide
         if (activities.hikingGuide) total += PRICES.hikingGuide;
 
-        setTotalCost(total);
+        return total;
+    };
 
-    }, [travelers, days, activities, stayType]);
+    const totalCost = calculateTotal();
 
     const toggleActivity = (key) => {
         setActivities(prev => ({ ...prev, [key]: !prev[key] }));
@@ -270,7 +270,7 @@ const TripCalculator = ({ onBookClick }) => {
 };
 
 // Helper Components
-const ActivityToggle = ({ label, price, active, onClick, disabled, className = '' }) => (
+const ActivityToggle = ({ label, price, active, onClick, className = '' }) => (
     <div
         onClick={onClick}
         className={`cursor-pointer p-4 rounded-xl border-2 transition-all flex flex-col justify-center items-center text-center gap-1 ${active

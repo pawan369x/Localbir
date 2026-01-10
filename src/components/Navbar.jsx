@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ChevronRight, Mountain, Coffee, BedDouble, MapPin, ArrowRight, Wind, Users, Sun, Cloud } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
+import { Menu, X, ChevronRight, Mountain, Coffee, BedDouble, MapPin, ArrowRight, Wind, Users, Sun } from 'lucide-react';
 
 // --- ADVANCED LIVE STATUS BAR ---
 const LiveStatus = () => (
@@ -48,6 +49,7 @@ const Navbar = ({ onBookClick }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [hoveredIndex, setHoveredIndex] = useState(null);
+    const location = useLocation();
 
     // Scroll Logic
     useEffect(() => {
@@ -68,14 +70,15 @@ const Navbar = ({ onBookClick }) => {
     }, [isOpen]);
 
     const navLinks = [
-        { name: 'Adventures', href: '#paragliding', icon: <Mountain size={20} />, desc: 'Fly high in Bir' },
-        { name: 'Best Cafes', href: '#guide', icon: <Coffee size={20} />, desc: 'Taste the local food' },
-        { name: 'Stays', href: '#paragliding', icon: <BedDouble size={20} />, desc: 'Cozy hostels & hotels' },
-        { name: 'Local Guide', href: '#guide', icon: <MapPin size={20} />, desc: 'Hidden waterfalls' },
+        { name: 'Adventures', to: '/adventures', icon: <Mountain size={20} />, desc: 'Fly high in Bir' },
+        { name: 'Best Cafes', to: '/guide', icon: <Coffee size={20} />, desc: 'Taste the local food' },
+        { name: 'Stays', to: '/stays', icon: <BedDouble size={20} />, desc: 'Cozy hostels & hotels' },
+        { name: 'Local Guide', to: '/guide', icon: <MapPin size={20} />, desc: 'Hidden waterfalls' },
+        { name: 'Plan Trip', to: '/plan-trip', icon: <MapPin size={20} />, desc: 'Budget Calculator' },
     ];
 
     // Dynamic Colors
-    const isTransparent = !scrolled && !isOpen;
+    const isTransparent = !scrolled && !isOpen && location.pathname === '/';
     const textColor = isTransparent ? 'text-white' : 'text-slate-800';
 
     // Animation Variants
@@ -107,7 +110,7 @@ const Navbar = ({ onBookClick }) => {
             <LiveStatus />
 
             <motion.nav
-                className={`w-full transition-all duration-300 ${scrolled ? 'bg-white/90 backdrop-blur-xl border-b border-slate-200/50 py-3 shadow-sm' : 'bg-transparent py-5'
+                className={`w-full transition-all duration-300 ${!isTransparent ? 'bg-white/90 backdrop-blur-xl border-b border-slate-200/50 py-3 shadow-sm' : 'bg-transparent py-5'
                     }`}
             >
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -115,18 +118,18 @@ const Navbar = ({ onBookClick }) => {
 
                         {/* --- LOGO --- */}
                         <div className="flex-shrink-0 z-50 relative">
-                            <a href="/" className={`text-2xl font-black tracking-tighter transition-colors duration-300 ${isOpen ? 'text-slate-900' : textColor}`}>
+                            <Link to="/" className={`text-2xl font-black tracking-tighter transition-colors duration-300 ${isOpen ? 'text-slate-900' : textColor}`}>
                                 Local<span className="text-sky-500">Bir.</span>
-                            </a>
+                            </Link>
                         </div>
 
                         {/* --- DESKTOP MENU --- */}
                         <div className="hidden lg:block">
                             <div className="flex items-center space-x-1">
                                 {navLinks.map((link, index) => (
-                                    <a
+                                    <Link
                                         key={link.name}
-                                        href={link.href}
+                                        to={link.to}
                                         onMouseEnter={() => setHoveredIndex(index)}
                                         onMouseLeave={() => setHoveredIndex(null)}
                                         className={`relative px-4 py-2 rounded-full text-sm font-bold transition-all duration-300 ${textColor}`}
@@ -134,14 +137,14 @@ const Navbar = ({ onBookClick }) => {
                                         {hoveredIndex === index && (
                                             <motion.span
                                                 layoutId="hoverBackground"
-                                                className={`absolute inset-0 rounded-full -z-10 ${scrolled ? 'bg-slate-100' : 'bg-white/20'}`}
+                                                className={`absolute inset-0 rounded-full -z-10 ${!isTransparent ? 'bg-slate-100' : 'bg-white/20'}`}
                                                 initial={{ opacity: 0 }}
                                                 animate={{ opacity: 1 }}
                                                 exit={{ opacity: 0 }}
                                             />
                                         )}
                                         {link.name}
-                                    </a>
+                                    </Link>
                                 ))}
                             </div>
                         </div>
@@ -199,26 +202,26 @@ const Navbar = ({ onBookClick }) => {
 
                             {/* Links */}
                             {navLinks.map((link) => (
-                                <motion.a
-                                    key={link.name}
-                                    variants={linkVars}
-                                    href={link.href}
-                                    onClick={() => setIsOpen(false)}
-                                    className="group flex items-center p-4 rounded-2xl hover:bg-slate-50 transition-colors"
-                                >
-                                    <div className="p-3 bg-white border border-slate-100 text-slate-600 rounded-xl shadow-sm group-hover:text-sky-500 group-hover:scale-110 transition-all mr-4">
-                                        {link.icon}
-                                    </div>
-                                    <div className="flex-1">
-                                        <span className="block text-xl font-bold text-slate-800 group-hover:text-sky-600">
-                                            {link.name}
-                                        </span>
-                                        <span className="text-xs text-slate-400 font-medium">
-                                            {link.desc}
-                                        </span>
-                                    </div>
-                                    <ChevronRight className="text-slate-300 group-hover:text-sky-500 group-hover:translate-x-1 transition-all" size={20} />
-                                </motion.a>
+                                <motion.div key={link.name} variants={linkVars}>
+                                    <Link
+                                        to={link.to}
+                                        onClick={() => setIsOpen(false)}
+                                        className="group flex items-center p-4 rounded-2xl hover:bg-slate-50 transition-colors"
+                                    >
+                                        <div className="p-3 bg-white border border-slate-100 text-slate-600 rounded-xl shadow-sm group-hover:text-sky-500 group-hover:scale-110 transition-all mr-4">
+                                            {link.icon}
+                                        </div>
+                                        <div className="flex-1">
+                                            <span className="block text-xl font-bold text-slate-800 group-hover:text-sky-600">
+                                                {link.name}
+                                            </span>
+                                            <span className="text-xs text-slate-400 font-medium">
+                                                {link.desc}
+                                            </span>
+                                        </div>
+                                        <ChevronRight className="text-slate-300 group-hover:text-sky-500 group-hover:translate-x-1 transition-all" size={20} />
+                                    </Link>
+                                </motion.div>
                             ))}
 
                             {/* Divider */}
