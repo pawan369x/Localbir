@@ -14,9 +14,19 @@ const MysteryGift = ({ onClose }) => {
     const [reward, setReward] = useState(null);
     const [copied, setCopied] = useState(false);
 
-    // Pick random reward
+    // Load saved state or pick random
     useEffect(() => {
-        setReward(rewards[Math.floor(Math.random() * rewards.length)]);
+        const savedIndex = localStorage.getItem('mystery_reward_index');
+
+        if (savedIndex !== null) {
+            // Already played
+            setReward(rewards[parseInt(savedIndex)]);
+            setIsScratched(true);
+        } else {
+            // New player - pick random but don't reveal yet
+            const randomIndex = Math.floor(Math.random() * rewards.length);
+            setReward(rewards[randomIndex]);
+        }
     }, []);
 
     // Drag Logic
@@ -43,6 +53,11 @@ const MysteryGift = ({ onClose }) => {
 
     const triggerWin = () => {
         setIsScratched(true);
+
+        // Save to LocalStorage to prevent re-play
+        const rewardIndex = rewards.findIndex(r => r.id === reward.id);
+        localStorage.setItem('mystery_reward_index', rewardIndex);
+
         // Confetti Blast 🎊
         confetti({
             particleCount: 100,

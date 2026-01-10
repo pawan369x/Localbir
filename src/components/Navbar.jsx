@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronRight, Mountain, Coffee, BedDouble, MapPin, ArrowRight, Wind, Users, Sun } from 'lucide-react';
+import { Menu, X, ChevronRight, Mountain, Coffee, BedDouble, MapPin, ArrowRight, Wind, Users, Sun, Home } from 'lucide-react';
 
 // --- ADVANCED LIVE STATUS BAR ---
 const LiveStatus = () => (
@@ -70,8 +70,8 @@ const Navbar = ({ onBookClick }) => {
     }, [isOpen]);
 
     const navLinks = [
+        { name: 'Home', to: '/', icon: <Home size={20} />, desc: 'Start here' },
         { name: 'Adventures', to: '/adventures', icon: <Mountain size={20} />, desc: 'Fly high in Bir' },
-        { name: 'Best Cafes', to: '/guide', icon: <Coffee size={20} />, desc: 'Taste the local food' },
         { name: 'Stays', to: '/stays', icon: <BedDouble size={20} />, desc: 'Cozy hostels & hotels' },
         { name: 'Local Guide', to: '/guide', icon: <MapPin size={20} />, desc: 'Hidden waterfalls' },
         { name: 'Plan Trip', to: '/plan-trip', icon: <MapPin size={20} />, desc: 'Budget Calculator' },
@@ -125,25 +125,25 @@ const Navbar = ({ onBookClick }) => {
 
                         {/* --- DESKTOP MENU --- */}
                         <div className="hidden lg:block">
-                            <div className="flex items-center space-x-1">
-                                {navLinks.map((link, index) => (
+                            <div className="flex items-center gap-1">
+                                {navLinks.map((link) => (
                                     <Link
                                         key={link.name}
                                         to={link.to}
-                                        onMouseEnter={() => setHoveredIndex(index)}
-                                        onMouseLeave={() => setHoveredIndex(null)}
-                                        className={`relative px-4 py-2 rounded-full text-sm font-bold transition-all duration-300 ${textColor}`}
+                                        className="group relative flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300 hover:bg-slate-100/10"
                                     >
-                                        {hoveredIndex === index && (
-                                            <motion.span
-                                                layoutId="hoverBackground"
-                                                className={`absolute inset-0 rounded-full -z-10 ${!isTransparent ? 'bg-slate-100' : 'bg-white/20'}`}
-                                                initial={{ opacity: 0 }}
-                                                animate={{ opacity: 1 }}
-                                                exit={{ opacity: 0 }}
-                                            />
-                                        )}
-                                        {link.name}
+                                        <span className={`p-1.5 rounded-full bg-white/10 group-hover:bg-sky-500 group-hover:text-white transition-colors duration-300 ${isTransparent ? 'text-white' : 'text-slate-600 bg-slate-100'}`}>
+                                            {React.cloneElement(link.icon, { size: 16 })}
+                                        </span>
+                                        <span className={`font-bold text-sm ${textColor} group-hover:text-sky-500 transition-colors`}>
+                                            {link.name}
+                                        </span>
+
+                                        {/* Hover Tooltip/Description */}
+                                        <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-48 bg-white p-3 rounded-xl shadow-xl border border-slate-100 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all pointer-events-none">
+                                            <p className="text-xs text-slate-400 font-medium text-center">{link.desc}</p>
+                                            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1 w-2 h-2 bg-white rotate-45 border-t border-l border-slate-100"></div>
+                                        </div>
                                     </Link>
                                 ))}
                             </div>

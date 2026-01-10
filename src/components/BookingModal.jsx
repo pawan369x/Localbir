@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Calendar, User, Phone, Users, Send, Flag, CheckCircle2, Loader2 } from 'lucide-react';
+import { X, Calendar, User, Phone, Users, Send, Flag, CheckCircle2, Loader2, Ticket } from 'lucide-react';
 
 const BookingModal = ({ isOpen, onClose }) => {
 
@@ -9,7 +9,8 @@ const BookingModal = ({ isOpen, onClose }) => {
         phone: '',
         date: '',
         guests: '1',
-        activity: 'Paragliding'
+        activity: 'Paragliding',
+        coupon: ''
     });
 
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -30,7 +31,8 @@ const BookingModal = ({ isOpen, onClose }) => {
             `📞 *Phone:* ${formData.phone}%0A` +
             `📅 *Date:* ${formData.date}%0A` +
             `👥 *Guests:* ${formData.guests}%0A` +
-            `🪂 *Activity:* ${formData.activity}%0A%0A` +
+            `🪂 *Activity:* ${formData.activity}%0A` +
+            `🎟️ *Coupon:* ${formData.coupon || 'N/A'}%0A%0A` +
             `Please confirm availability.`;
 
         const phoneNumber = "916230044384";
@@ -155,6 +157,18 @@ const BookingModal = ({ isOpen, onClose }) => {
                                         </div>
                                     </div>
 
+                                    {/* Coupon Code */}
+                                    <div className="group">
+                                        <label className="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Coupon Code</label>
+                                        <div className="relative mt-1">
+                                            <input
+                                                type="text" name="coupon" placeholder="Enter code here"
+                                                className="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 px-4 focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 transition-all font-medium text-slate-800"
+                                                onChange={handleChange}
+                                            />
+                                        </div>
+                                    </div>
+
                                     {/* Activity */}
                                     <div className="group">
                                         <label className="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Interested In</label>
@@ -173,6 +187,18 @@ const BookingModal = ({ isOpen, onClose }) => {
                                                 <option value="Room Rent">Room Rent 🏠</option>
                                                 <option value="Bike/Cycle Rent">Bike/Cycle Rent 🚲</option>
                                             </select>
+                                        </div>
+                                    </div>
+
+                                    {/* Coupon Screenshot Upload */}
+                                    <div className="group">
+                                        <label className="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Upload Coupon Screenshot (Optional)</label>
+                                        <div className="relative mt-1">
+                                            <input
+                                                type="file"
+                                                accept="image/*"
+                                                className="w-full bg-slate-50 border border-slate-200 rounded-xl py-2 px-4 text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-sky-50 file:text-sky-700 hover:file:bg-sky-100 transition-all"
+                                            />
                                         </div>
                                     </div>
 
