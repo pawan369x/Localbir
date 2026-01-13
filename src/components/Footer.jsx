@@ -118,6 +118,7 @@ const Footer = ({ onBookClick }) => {
                                 <FooterLink text="Home" to="/" />
                                 <FooterLink text="Paragliding" to="/adventures" />
                                 <FooterLink text="Camping" to="/adventures" />
+                                <FooterLink text="Blog" to="/blog" />
                                 <FooterLink text="About Us" to="/about" />
                                 <FooterLink text="Plan Trip" to="/plan-trip" />
                             </ul>

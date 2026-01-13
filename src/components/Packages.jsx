@@ -18,7 +18,8 @@ const packages = [
             'Instant Video Transfer'
         ],
         isPopular: true,
-        image: 'https://images.unsplash.com/photo-1495574341103-67c4cb033877?auto=format&fit=crop&q=80&w=800'
+        // Updated Image: Local Paragliding Selfie (man.jpg)
+        image: '/adventure.png'
     },
     {
         id: 2,
@@ -35,7 +36,8 @@ const packages = [
             'Bonfire (for Camping)'
         ],
         isPopular: false,
-        image: 'https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?auto=format&fit=crop&q=80&w=800'
+        // Updated Image: Camping/Adventure (adventure.png)
+        image: '/man.jpg'
     },
     {
         id: 3,
@@ -52,7 +54,8 @@ const packages = [
             'Village Walks'
         ],
         isPopular: false,
-        image: 'https://images.unsplash.com/photo-1533587851505-d119e13fa0d7?auto=format&fit=crop&q=80&w=800'
+        // Updated Image: Local Bungee Image (Representative of Extreme Adventures)
+        image: '/stay.jpg'
     }
 ];
 
@@ -141,7 +144,6 @@ const Packages = ({ onBookClick }) => {
                                 {/* Unified Content Rendering */}
                                 <div className="mb-6 flex items-baseline gap-1">
                                     <span className="text-4xl font-black text-slate-900">{pkg.price}</span>
-                                    {/* Show "/ person" or "/ night" only if it makes sense contextually, or generic */}
                                     <span className="text-slate-400 font-medium text-sm ml-2">{pkg.duration}</span>
                                 </div>
 

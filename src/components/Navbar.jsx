@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronRight, Mountain, Coffee, BedDouble, MapPin, ArrowRight, Wind, Users, Sun, Home } from 'lucide-react';
+import { Menu, X, ChevronRight, Mountain, Coffee, BedDouble, MapPin, ArrowRight, Wind, Users, Sun, Home, BookOpen } from 'lucide-react';
 
 // --- ADVANCED LIVE STATUS BAR ---
 const LiveStatus = () => (
@@ -69,11 +69,13 @@ const Navbar = ({ onBookClick }) => {
         }
     }, [isOpen]);
 
+    // Navigation Links
     const navLinks = [
         { name: 'Home', to: '/', icon: <Home size={20} />, desc: 'Start here' },
         { name: 'Adventures', to: '/adventures', icon: <Mountain size={20} />, desc: 'Fly high in Bir' },
         { name: 'Stays', to: '/stays', icon: <BedDouble size={20} />, desc: 'Cozy hostels & hotels' },
         { name: 'Local Guide', to: '/guide', icon: <MapPin size={20} />, desc: 'Hidden waterfalls' },
+        { name: 'Blog', to: '/blog', icon: <BookOpen size={20} />, desc: 'Stories & Tips' },
         { name: 'Plan Trip', to: '/plan-trip', icon: <MapPin size={20} />, desc: 'Budget Calculator' },
     ];
 
@@ -81,7 +83,6 @@ const Navbar = ({ onBookClick }) => {
     const isTransparent = !scrolled && !isOpen && location.pathname === '/';
     const textColor = isTransparent ? 'text-white' : 'text-slate-800';
 
-    // Animation Variants
     const menuVars = {
         initial: { clipPath: "circle(0% at 100% 0%)" }, // Cool circle reveal effect
         animate: {

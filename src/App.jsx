@@ -3,7 +3,6 @@ import { Routes, Route, Outlet } from 'react-router-dom';
 import BookingModal from './components/BookingModal';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-// import './App.css';
 
 // --- Pages ---
 import Home from './pages/Home';
@@ -12,6 +11,8 @@ import TripPlannerPage from './pages/TripPlannerPage';
 import GuidePage from './pages/GuidePage';
 import AboutPage from './pages/AboutPage'; // Or however you want to expose WhyChooseUs/Roadmap
 import StaysPage from './pages/StaysPage';
+import BlogPage from './pages/BlogPage';
+import BlogPost from './pages/BlogPost';
 
 const Layout = () => {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
@@ -47,7 +48,10 @@ const App = () => {
         <Route path="adventures" element={<PackagesPage />} /> {/* Alias */}
         <Route path="plan-trip" element={<TripPlannerPage />} />
         <Route path="stays" element={<StaysPage />} />
+
         <Route path="guide" element={<GuidePage />} />
+        <Route path="blog" element={<BlogPage />} />
+        <Route path="blog/:id" element={<BlogPost />} />
         <Route path="about" element={<AboutPage />} />
         {/* Fallback route */}
         <Route path="*" element={<Home />} />

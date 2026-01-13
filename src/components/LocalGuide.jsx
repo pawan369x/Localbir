@@ -6,7 +6,7 @@ import { MapPin, Compass, Camera, Coffee, Star, ShieldCheck, Heart } from 'lucid
 // import abhiImg from '../assets/abhi.png';
 // import deepakImg from '../assets/deepak.jpg';
 
-const LocalGuide = () => {
+const LocalGuide = ({ onBookClick }) => {
     const guides = [
         {
             name: "Deepak",
@@ -119,7 +119,10 @@ const LocalGuide = () => {
                                     {guide.desc}
                                 </p>
 
-                                <button className="w-full py-3 rounded-xl bg-slate-50 text-slate-700 font-bold text-sm hover:bg-sky-50 hover:text-sky-600 transition-colors flex items-center justify-center gap-2 group-hover:shadow-md">
+                                <button
+                                    onClick={onBookClick}
+                                    className="w-full py-3 rounded-xl bg-slate-50 text-slate-700 font-bold text-sm hover:bg-sky-50 hover:text-sky-600 transition-colors flex items-center justify-center gap-2 group-hover:shadow-md"
+                                >
                                     Book with {guide.name} <Heart size={16} className="group-hover:fill-sky-500 group-hover:text-sky-500 transition-colors" />
                                 </button>
                             </div>

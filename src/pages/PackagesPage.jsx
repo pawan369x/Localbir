@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import SEO from '../components/SEO';
 import Packages from '../components/Packages';
 import AdventuresGrid from '../components/AdventuresGrid';
+import MoreAdventures from '../components/MoreAdventures';
+import MysteryGift from '../components/MysteryGift';
 import { useOutletContext } from 'react-router-dom';
 
 const PackagesPage = () => {
@@ -20,7 +22,9 @@ const PackagesPage = () => {
                 url="https://localbir.com/adventures"
             />
             <Packages onBookClick={onBookClick} />
-            <AdventuresGrid />
+            <MoreAdventures />
+            <AdventuresGrid onBookClick={onBookClick} />
+            <MysteryGift />
         </div>
     );
 };

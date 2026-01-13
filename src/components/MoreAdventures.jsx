@@ -9,7 +9,7 @@ const adventures = [
         tag: "Extreme Thrill",
         desc: "Jump off from 50 meters! India's highest bungee in a natural setting.",
         height: "row-span-2", // Bada box
-        image: "https://images.unsplash.com/photo-1525867958056-12c49b6703b6?auto=format&fit=crop&q=80&w=800",
+        image: "/bungee.jpg",
         icon: <Activity />
     },
     {
@@ -18,7 +18,7 @@ const adventures = [
         tag: "Must Try",
         desc: "Ride a bicycle on a rope suspended 100ft in the air. Perfect for photos.",
         height: "row-span-1",
-        image: "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?auto=format&fit=crop&q=80&w=800",
+        image: "/sky-cycle.webp",
         icon: <Bike />
     },
     {
@@ -27,7 +27,7 @@ const adventures = [
         tag: "Nature Walk",
         desc: "A short hike through the forest leading to a hidden milky waterfall.",
         height: "row-span-1",
-        image: "https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?auto=format&fit=crop&q=80&w=800",
+        image: "/waterfall.jpg",
         icon: <Mountain />
     },
     {
@@ -36,7 +36,7 @@ const adventures = [
         tag: "Off-Road",
         desc: "Rent a MTB and explore the pine forests and monasteries at your own pace.",
         height: "md:col-span-2 row-span-1", // Wide box
-        image: "https://images.unsplash.com/photo-1544191696-102dbdaeeaa0?auto=format&fit=crop&q=80&w=800",
+        image: "/hanuman.jpg",
         icon: <Bike />
     }
 ];

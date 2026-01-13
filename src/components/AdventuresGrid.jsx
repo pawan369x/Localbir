@@ -10,7 +10,7 @@ const adventures = [
         category: "Fly",
         price: "₹3,000",
         difficulty: "Medium",
-        image: "https://images.unsplash.com/photo-1525867958056-12c49b6703b6?auto=format&fit=crop&q=80&w=800",
+        image: "/paragliding.jpeg",
         desc: "Soar 8000ft above sea level. The classic Bir experience.",
         colSpan: "md:col-span-2 md:row-span-2", // BIGGEST CARD
         icon: <Wind />
@@ -21,7 +21,7 @@ const adventures = [
         category: "Thrill",
         price: "₹2,500",
         difficulty: "Extreme",
-        image: "https://images.unsplash.com/photo-1517586979036-b7d1e86b3345?auto=format&fit=crop&q=80&w=800",
+        image: "/bungee.jpg",
         desc: "Dare to jump? India's highest bungee platform.",
         colSpan: "md:col-span-1 md:row-span-1",
         icon: <Activity />
@@ -32,7 +32,7 @@ const adventures = [
         category: "Thrill",
         price: "₹1,200",
         difficulty: "Easy",
-        image: "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?auto=format&fit=crop&q=80&w=800",
+        image: "/sky-cycle.webp",
         desc: "Ride a cycle on a rope suspended in the sky.",
         colSpan: "md:col-span-1 md:row-span-1",
         icon: <Activity />
@@ -43,18 +43,18 @@ const adventures = [
         category: "Nature",
         price: "₹800",
         difficulty: "Medium",
-        image: "https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?auto=format&fit=crop&q=80&w=800",
+        image: "/waterfall.jpg",
         desc: "A hidden gem inside the forest. Swim in natural pools.",
         colSpan: "md:col-span-1 md:row-span-1",
         icon: <Waves />
     },
     {
         id: 5,
-        title: "Go Karting",
+        title: "Karting",
         category: "Fun",
         price: "₹600",
         difficulty: "Easy",
-        image: "https://images.unsplash.com/photo-1598556776374-1b1b7f631165?auto=format&fit=crop&q=80&w=800",
+        image: "/karting.jpg",
         desc: "Race your friends on the tracks of Bir.",
         colSpan: "md:col-span-1 md:row-span-1",
         icon: <Car />
@@ -65,7 +65,7 @@ const adventures = [
         category: "Nature",
         price: "₹1,500",
         difficulty: "Hard",
-        image: "https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&q=80&w=800",
+        image: "/hanuman.jpg",
         desc: "Trek to the top for a 360-degree view of the Himalayas.",
         colSpan: "md:col-span-2 md:row-span-1", // WIDE CARD
         icon: <Mountain />
@@ -74,7 +74,7 @@ const adventures = [
 
 const filters = ["All", "Fly", "Thrill", "Nature", "Fun"];
 
-const AdventuresGrid = () => {
+const AdventuresGrid = ({ onBookClick }) => {
     const [activeFilter, setActiveFilter] = useState("All");
 
     const filteredAdventures = activeFilter === "All"
@@ -82,21 +82,21 @@ const AdventuresGrid = () => {
         : adventures.filter(item => item.category === activeFilter);
 
     return (
-        <section className="py-24 bg-slate-50 relative overflow-hidden" id="adventures">
+        <section className="py-24 bg-white relative overflow-hidden" id="adventures">
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
                 {/* Header & Filter */}
                 <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
                     <div>
-                        <span className="text-orange-500 font-bold tracking-widest uppercase text-sm">Explore Bir</span>
+                        <span className="text-sky-500 font-bold tracking-widest uppercase text-sm">Explore Bir</span>
                         <h2 className="text-4xl md:text-5xl font-black text-slate-900 mt-2">
-                            Choose Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-red-600">Thrill.</span>
+                            Choose Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-500 to-blue-600">Thrill.</span>
                         </h2>
                     </div>
 
                     {/* Animated Filter Tabs */}
-                    <div className="flex flex-wrap gap-2 p-1.5 bg-white border border-slate-200 rounded-2xl shadow-sm">
+                    <div className="flex flex-wrap gap-2 p-1.5 bg-slate-50 border border-slate-200 rounded-2xl shadow-sm">
                         {filters.map((filter) => (
                             <button
                                 key={filter}
@@ -107,7 +107,7 @@ const AdventuresGrid = () => {
                                 {activeFilter === filter && (
                                     <motion.div
                                         layoutId="activeTab"
-                                        className="absolute inset-0 bg-slate-900 rounded-xl"
+                                        className="absolute inset-0 bg-sky-500 rounded-xl shadow-lg shadow-sky-500/30"
                                         transition={{ type: "spring", stiffness: 500, damping: 30 }}
                                     />
                                 )}
@@ -118,10 +118,10 @@ const AdventuresGrid = () => {
                 </div>
 
                 {/* THE BENTO GRID */}
-                <motion.div layout className="grid grid-cols-1 md:grid-cols-4 gap-6 auto-rows-[250px]">
+                <motion.div layout className="grid grid-cols-1 md:grid-cols-4 gap-4 auto-rows-[280px]">
                     <AnimatePresence>
                         {filteredAdventures.map((item) => (
-                            <AdventureCard key={item.id} item={item} />
+                            <AdventureCard key={item.id} item={item} onClick={onBookClick} />
                         ))}
                     </AnimatePresence>
                 </motion.div>
@@ -132,7 +132,7 @@ const AdventuresGrid = () => {
 };
 
 // --- ADVANCED CARD COMPONENT ---
-const AdventureCard = ({ item }) => {
+const AdventureCard = ({ item, onClick }) => {
     return (
         <motion.div
             layout
@@ -140,7 +140,8 @@ const AdventureCard = ({ item }) => {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
             transition={{ duration: 0.3 }}
-            className={`group relative rounded-[2rem] overflow-hidden cursor-pointer ${item.colSpan}`}
+            onClick={onClick}
+            className={`group relative rounded-3xl overflow-hidden cursor-pointer ${item.colSpan}`}
         >
             {/* Background Image with Zoom Effect */}
             <div className="absolute inset-0">
@@ -182,7 +183,7 @@ const AdventureCard = ({ item }) => {
                     </p>
                     <div className="flex items-center justify-between border-t border-white/20 pt-3">
                         <div className="flex items-center gap-2 text-white/80 text-xs font-bold">
-                            <Gauge size={14} className="text-orange-400" />
+                            <Gauge size={14} className="text-sky-400" />
                             Level: {item.difficulty}
                         </div>
                         <span className="text-xl font-bold text-white">
