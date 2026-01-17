@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Routes, Route, Outlet } from 'react-router-dom';
 import BookingModal from './components/BookingModal';
+import DirectDialer from './components/DirectDialer';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
@@ -35,6 +36,9 @@ const Layout = () => {
         isOpen={isBookingOpen}
         onClose={() => setIsBookingOpen(false)}
       />
+
+      {/* Direct One Tap Dialer */}
+      <DirectDialer />
     </div>
   );
 };
@@ -51,7 +55,7 @@ const App = () => {
 
         <Route path="guide" element={<GuidePage />} />
         <Route path="blog" element={<BlogPage />} />
-        <Route path="blog/:id" element={<BlogPost />} />
+        <Route path="blog/:slug" element={<BlogPost />} />
         <Route path="about" element={<AboutPage />} />
         {/* Fallback route */}
         <Route path="*" element={<Home />} />
