@@ -8,8 +8,6 @@ import Testimonials from '../components/Testimonials';
 import MysteryGift from '../components/MysteryGift';
 import FAQ from '../components/FAQ';
 import { useOutletContext } from 'react-router-dom';
-import { AnimatePresence, motion } from 'framer-motion';
-import { useState } from 'react';
 
 const Home = () => {
     const { onBookClick } = useOutletContext();

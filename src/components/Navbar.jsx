@@ -72,6 +72,7 @@ const Navbar = ({ onBookClick }) => {
     // Navigation Links
     const navLinks = [
         { name: 'Home', to: '/', icon: <Home size={20} />, desc: 'Start here' },
+        { name: 'Services', to: '/services', icon: <Wind size={20} />, desc: 'All you need' }, // Using Wind icon for Services
         { name: 'Adventures', to: '/adventures', icon: <Mountain size={20} />, desc: 'Fly high in Bir' },
         { name: 'Stays', to: '/stays', icon: <BedDouble size={20} />, desc: 'Cozy hostels & hotels' },
         { name: 'Local Guide', to: '/guide', icon: <MapPin size={20} />, desc: 'Hidden waterfalls' },

@@ -1,19 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense, lazy } from 'react';
 import { Routes, Route, Outlet } from 'react-router-dom';
-import BookingModal from './components/BookingModal';
 import DirectDialer from './components/DirectDialer';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
-// --- Pages ---
-import Home from './pages/Home';
-import PackagesPage from './pages/PackagesPage';
-import TripPlannerPage from './pages/TripPlannerPage';
-import GuidePage from './pages/GuidePage';
-import AboutPage from './pages/AboutPage'; // Or however you want to expose WhyChooseUs/Roadmap
-import StaysPage from './pages/StaysPage';
-import BlogPage from './pages/BlogPage';
-import BlogPost from './pages/BlogPost';
+// --- Lazy Load Pages & Components ---
+const Home = lazy(() => import('./pages/Home'));
+const ServicesPage = lazy(() => import('./pages/ServicesPage'));
+const PackagesPage = lazy(() => import('./pages/PackagesPage'));
+const TripPlannerPage = lazy(() => import('./pages/TripPlannerPage'));
+const GuidePage = lazy(() => import('./pages/GuidePage'));
+const AboutPage = lazy(() => import('./pages/AboutPage'));
+const StaysPage = lazy(() => import('./pages/StaysPage'));
+const BlogPage = lazy(() => import('./pages/BlogPage'));
+const BlogPost = lazy(() => import('./pages/BlogPost'));
+const BookingModal = lazy(() => import('./components/BookingModal'));
+
+// Loading Fallback
+const PageLoader = () => (
+  <div className="flex h-[70vh] w-full items-center justify-center">
+    <div className="h-12 w-12 animate-spin rounded-full border-4 border-slate-200 border-t-green-500"></div>
+  </div>
+);
 
 const Layout = () => {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
@@ -31,18 +39,24 @@ const Layout = () => {
 
       {/* Main Content Area */}
       <main className="flex-grow">
-        <Outlet context={{ onBookClick: handleBookClick }} />
+        <Suspense fallback={<PageLoader />}>
+          <Outlet context={{ onBookClick: handleBookClick }} />
+        </Suspense>
       </main>
 
       {/* Footer */}
       <Footer onBookClick={() => handleBookClick()} />
 
       {/* Booking Modal */}
-      <BookingModal
-        isOpen={isBookingOpen}
-        onClose={() => setIsBookingOpen(false)}
-        initialData={bookingInitialData}
-      />
+      <Suspense fallback={null}>
+        {isBookingOpen && (
+          <BookingModal
+            isOpen={isBookingOpen}
+            onClose={() => setIsBookingOpen(false)}
+            initialData={bookingInitialData}
+          />
+        )}
+      </Suspense>
 
       {/* Direct One Tap Dialer */}
       <DirectDialer />
@@ -55,6 +69,7 @@ const App = () => {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
+        <Route path="services" element={<ServicesPage />} />
         <Route path="packages" element={<PackagesPage />} />
         <Route path="adventures" element={<PackagesPage />} /> {/* Alias */}
         <Route path="plan-trip" element={<TripPlannerPage />} />

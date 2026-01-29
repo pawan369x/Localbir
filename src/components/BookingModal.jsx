@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Calendar, User, Phone, Users, Send, Flag, CheckCircle2, Loader2, Ticket } from 'lucide-react';
+import { X, Calendar, User, Phone, Users, Send, Flag, CheckCircle2, Loader2 } from 'lucide-react';
 
 const BookingModal = ({ isOpen, onClose, initialData }) => {
 
