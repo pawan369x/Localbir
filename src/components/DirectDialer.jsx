@@ -10,19 +10,19 @@ const DirectDialer = () => {
         {
             name: "Abhi (Owner)",
             role: "Direct Owner",
-            number: "+919816000000", // <--- Apna Number Laga
+            number: "+916230044384", // <--- Apna Number Laga
             type: "call"
         },
         {
             name: "Booking Desk",
             role: "Enquiry",
-            number: "+919816000000", // <--- Dusra Number Laga
+            number: "+916230044384", // <--- Dusra Number Laga
             type: "call"
         },
         {
             name: "WhatsApp Chat",
             role: "Instant Reply",
-            number: "919816000000",
+            number: "+916230044384",
             type: "whatsapp"
         }
     ];

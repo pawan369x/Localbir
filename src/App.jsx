@@ -17,24 +17,31 @@ import BlogPost from './pages/BlogPost';
 
 const Layout = () => {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
+  const [bookingInitialData, setBookingInitialData] = useState(null);
+
+  const handleBookClick = (data = null) => {
+    setBookingInitialData(data);
+    setIsBookingOpen(true);
+  };
 
   return (
     <div className="bg-white min-h-screen font-sans selection:bg-sky-200 selection:text-sky-900 text-gray-900 flex flex-col">
       {/* Header Overlay */}
-      <Navbar onBookClick={() => setIsBookingOpen(true)} />
+      <Navbar onBookClick={() => handleBookClick()} />
 
       {/* Main Content Area */}
       <main className="flex-grow">
-        <Outlet context={{ onBookClick: () => setIsBookingOpen(true) }} />
+        <Outlet context={{ onBookClick: handleBookClick }} />
       </main>
 
       {/* Footer */}
-      <Footer onBookClick={() => setIsBookingOpen(true)} />
+      <Footer onBookClick={() => handleBookClick()} />
 
       {/* Booking Modal */}
       <BookingModal
         isOpen={isBookingOpen}
         onClose={() => setIsBookingOpen(false)}
+        initialData={bookingInitialData}
       />
 
       {/* Direct One Tap Dialer */}

@@ -3,14 +3,7 @@ import { motion } from 'framer-motion';
 import { Truck, Mountain, Wind, Coffee, Map, ArrowRight } from 'lucide-react';
 
 const steps = [
-    {
-        id: 1,
-        title: "The Camper Ride",
-        subtitle: "Off-Road to 8000ft",
-        desc: "Hop into a 4x4 Bolero Camper. Watch us load the gliders in the back as we drive through the pine forests to the takeoff site.",
-        icon: <Truck size={24} />,
-        video: "/camper.mp4", // Is naam se video public folder me daalna
-    },
+
     {
         id: 2,
         title: "Briefing & Gear Up",

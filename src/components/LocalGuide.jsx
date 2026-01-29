@@ -9,11 +9,11 @@ import { MapPin, Compass, Camera, Coffee, Star, ShieldCheck, Heart } from 'lucid
 const LocalGuide = ({ onBookClick }) => {
     const guides = [
         {
-            name: "Deepak",
+            name: "Gourav",
             role: "Senior Local Guide",
             exp: "8+ Years Experience",
             desc: "Born and raised here. He knows every hidden trail and the best sunset spots that no tourist map will show.",
-            image: "/deepak.jpg",
+            image: "/gourav.jpg",
             specialty: "Hidden Trails",
             color: "bg-orange-500"
         },

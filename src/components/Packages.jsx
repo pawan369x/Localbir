@@ -37,7 +37,7 @@ const packages = [
         ],
         isPopular: false,
         // Updated Image: Camping/Adventure (adventure.png)
-        image: '/man.jpg'
+        image: '/stay.jpg'
     },
     {
         id: 3,
@@ -55,7 +55,7 @@ const packages = [
         ],
         isPopular: false,
         // Updated Image: Local Bungee Image (Representative of Extreme Adventures)
-        image: '/stay.jpg'
+        image: '/man.jpg'
     }
 ];
 

@@ -24,7 +24,7 @@ const PackagesPage = () => {
             <Packages onBookClick={onBookClick} />
 
             <AdventuresGrid onBookClick={onBookClick} />
-            <MysteryGift />
+            <MysteryGift onBookClick={onBookClick} />
         </div>
     );
 };

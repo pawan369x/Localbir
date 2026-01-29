@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Calendar, User, Phone, Users, Send, Flag, CheckCircle2, Loader2, Ticket } from 'lucide-react';
 
-const BookingModal = ({ isOpen, onClose }) => {
+const BookingModal = ({ isOpen, onClose, initialData }) => {
 
     const [formData, setFormData] = useState({
         name: '',
@@ -10,10 +10,17 @@ const BookingModal = ({ isOpen, onClose }) => {
         date: '',
         guests: '1',
         activity: 'Paragliding',
-        coupon: ''
+        coupon: '',
+        message: ''
     });
 
     const [isSubmitting, setIsSubmitting] = useState(false);
+
+    useEffect(() => {
+        if (isOpen && initialData) {
+            setFormData(prev => ({ ...prev, ...initialData }));
+        }
+    }, [isOpen, initialData]);
 
     // Input Change Handler
     const handleChange = (e) => {
@@ -32,7 +39,8 @@ const BookingModal = ({ isOpen, onClose }) => {
             `📅 *Date:* ${formData.date}%0A` +
             `👥 *Guests:* ${formData.guests}%0A` +
             `🪂 *Activity:* ${formData.activity}%0A` +
-            `🎟️ *Coupon:* ${formData.coupon || 'N/A'}%0A%0A` +
+            `🎟️ *Coupon:* ${formData.coupon || 'N/A'}%0A` +
+            `💬 *Note:* ${formData.message || 'None'}%0A%0A` +
             `Please confirm availability.`;
 
         const phoneNumber = "916230044384";
@@ -80,9 +88,9 @@ const BookingModal = ({ isOpen, onClose }) => {
 
                                     <button
                                         onClick={onClose}
-                                        className="absolute right-4 top-4 p-2 bg-white/20 hover:bg-white/30 rounded-full transition-colors backdrop-blur-md"
+                                        className="absolute right-4 top-4 z-50 p-2 bg-black/20 hover:bg-black/30 text-white rounded-full transition-all backdrop-blur-md shadow-sm"
                                     >
-                                        <X size={20} />
+                                        <X size={24} />
                                     </button>
 
                                     <motion.div
@@ -108,6 +116,7 @@ const BookingModal = ({ isOpen, onClose }) => {
                                             <input
                                                 type="text" name="name" required placeholder="e.g. Rahul Sharma"
                                                 className="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 pl-11 pr-4 focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 transition-all font-medium text-slate-800"
+                                                value={formData.name}
                                                 onChange={handleChange}
                                             />
                                         </div>
@@ -121,6 +130,7 @@ const BookingModal = ({ isOpen, onClose }) => {
                                             <input
                                                 type="tel" name="phone" required placeholder="e.g. 9876543210"
                                                 className="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 pl-11 pr-4 focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 transition-all font-medium text-slate-800"
+                                                value={formData.phone}
                                                 onChange={handleChange}
                                             />
                                         </div>
@@ -135,6 +145,7 @@ const BookingModal = ({ isOpen, onClose }) => {
                                                 <input
                                                     type="date" name="date" required
                                                     className="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 pl-11 pr-2 focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 transition-all font-medium text-slate-800 text-sm"
+                                                    value={formData.date}
                                                     onChange={handleChange}
                                                 />
                                             </div>
@@ -147,6 +158,7 @@ const BookingModal = ({ isOpen, onClose }) => {
                                                 <select
                                                     name="guests"
                                                     className="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 pl-11 pr-2 focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 transition-all font-medium text-slate-800 appearance-none"
+                                                    value={formData.guests}
                                                     onChange={handleChange}
                                                 >
                                                     {[1, 2, 3, 4, 5, 6, '7+'].map(num => (
@@ -164,6 +176,7 @@ const BookingModal = ({ isOpen, onClose }) => {
                                             <input
                                                 type="text" name="coupon" placeholder="Enter code here"
                                                 className="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 px-4 focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 transition-all font-medium text-slate-800"
+                                                value={formData.coupon}
                                                 onChange={handleChange}
                                             />
                                         </div>
@@ -177,6 +190,7 @@ const BookingModal = ({ isOpen, onClose }) => {
                                             <select
                                                 name="activity"
                                                 className="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 pl-11 pr-4 focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 transition-all font-medium text-slate-800 appearance-none"
+                                                value={formData.activity}
                                                 onChange={handleChange}
                                             >
                                                 <option value="Paragliding">Paragliding 🪂</option>
@@ -190,17 +204,7 @@ const BookingModal = ({ isOpen, onClose }) => {
                                         </div>
                                     </div>
 
-                                    {/* Coupon Screenshot Upload */}
-                                    <div className="group">
-                                        <label className="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Upload Coupon Screenshot (Optional)</label>
-                                        <div className="relative mt-1">
-                                            <input
-                                                type="file"
-                                                accept="image/*"
-                                                className="w-full bg-slate-50 border border-slate-200 rounded-xl py-2 px-4 text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-sky-50 file:text-sky-700 hover:file:bg-sky-100 transition-all"
-                                            />
-                                        </div>
-                                    </div>
+
 
                                     {/* Submit Button */}
                                     <motion.button
@@ -211,6 +215,21 @@ const BookingModal = ({ isOpen, onClose }) => {
                                     >
                                         Proceed to WhatsApp <Send size={20} />
                                     </motion.button>
+
+                                    {/* Additional Note/Query */}
+                                    <div className="group">
+                                        <label className="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Any Special Request / Query?</label>
+                                        <div className="relative mt-1">
+                                            <textarea
+                                                name="message"
+                                                rows="2"
+                                                placeholder="e.g. Need gluten-free food, or pilot preference..."
+                                                className="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 px-4 focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 transition-all font-medium text-slate-800 resize-none text-sm"
+                                                value={formData.message}
+                                                onChange={handleChange}
+                                            />
+                                        </div>
+                                    </div>
 
                                     <p className="text-[10px] text-center text-slate-400">
                                         *No payment required at this stage.

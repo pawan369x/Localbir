@@ -29,9 +29,9 @@ const Home = () => {
             <BannerCarousel />
             <FlightDashboard onBookClick={onBookClick} />
             <WhyChooseUs />
-            <JourneyRoadmap />
+            <JourneyRoadmap onBookClick={onBookClick} />
             <Testimonials />
-            <MysteryGift />
+            <MysteryGift onBookClick={onBookClick} />
             <FAQ />
             {/* You can add teasers for Packages or Guide here if needed */}
         </>

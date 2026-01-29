@@ -10,6 +10,24 @@ const roomImg = '/room1.webp';
 // --- DATA CONFIGURATION ---
 const staysData = [
     {
+        id: 4,
+        name: "Shiva Guest House",
+        tag: "Peaceful Retreat",
+        location: "Bir Colony",
+        price: 1200,
+        displayPrice: "₹1,500",
+        rating: 4.8,
+        images: [
+            "/shiva_guest_house_main.jpg",
+
+        ],
+        amenities: [
+            { icon: <Mountain size={14} />, label: "Valley View" },
+            { icon: <Wifi size={14} />, label: "Fast WiFi" },
+        ],
+        desc: "A serene and affordable guest house offering a homely atmosphere and stunning views of the mountains."
+    },
+    {
         id: 1,
         name: "Flyers Paradise",
         tag: "Premium Stay",
@@ -45,24 +63,7 @@ const staysData = [
         ],
         desc: "Famous for its panoramic views and premium hospitality. Best sunset point in Bir."
     },
-    {
-        id: 3,
-        name: "Sky Candy",
-        tag: "Budget & Vibes",
-        location: "Tibetan Colony",
-        price: 1500,
-        displayPrice: "₹1,500",
-        rating: 4.7,
-        images: [
-            "https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?auto=format&fit=crop&q=80&w=800", // Camping/Tent generic
-            "https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?auto=format&fit=crop&q=80&w=800"
-        ],
-        amenities: [
-            { icon: <Mountain size={14} />, label: "Camping" },
-            { icon: <Wifi size={14} />, label: "Bonfire" },
-        ],
-        desc: "Experience nature with comfortable camping. Perfect for groups and budget travelers."
-    }
+
 ];
 
 const Stays = () => {
@@ -79,7 +80,7 @@ const Stays = () => {
                             <Zap size={14} fill="currentColor" /> Handpicked Stays
                         </span>
                         <h2 className="text-4xl md:text-6xl font-black text-slate-900 mt-4">
-                            Stay & <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-500 to-blue-600">Fly.</span>
+                            Stays
                         </h2>
                     </div>
                     <p className="text-slate-500 max-w-sm text-lg leading-relaxed text-right md:text-left">
