@@ -81,22 +81,22 @@ const FAQ = () => {
 
                                     <div className="space-y-4">
                                         {/* Phone Button (White Glass for contrast) */}
-                                        <button className="w-full bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white text-white hover:text-blue-600 py-4 px-6 rounded-xl font-bold flex items-center justify-between group/btn transition-all duration-300">
+                                        <a href="tel:+916230044384" className="w-full bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white text-white hover:text-blue-600 py-4 px-6 rounded-xl font-bold flex items-center justify-between group/btn transition-all duration-300">
                                             <div className="flex items-center gap-3">
                                                 <PhoneCall size={20} />
                                                 <span>+91 62300 44384</span>
                                             </div>
                                             <ChevronRight size={18} className="opacity-50 group-hover/btn:opacity-100 group-hover/btn:translate-x-1 transition-all" />
-                                        </button>
+                                        </a>
 
                                         {/* WhatsApp Button (Original Brand Color - As requested) */}
-                                        <button className="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white py-4 px-6 rounded-xl font-bold flex items-center justify-between group/btn transition-all shadow-lg shadow-green-900/20">
+                                        <a href="https://wa.me/916230044384" target="_blank" rel="noopener noreferrer" className="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white py-4 px-6 rounded-xl font-bold flex items-center justify-between group/btn transition-all shadow-lg shadow-green-900/20">
                                             <div className="flex items-center gap-3">
                                                 <MessageCircle size={20} />
                                                 <span>WhatsApp Us</span>
                                             </div>
                                             <ChevronRight size={18} className="opacity-50 group-hover/btn:opacity-100 group-hover/btn:translate-x-1 transition-all" />
-                                        </button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -114,8 +114,8 @@ const FAQ = () => {
                                     viewport={{ once: true }}
                                     transition={{ delay: index * 0.1 }}
                                     className={`group border rounded-2xl transition-all duration-300 overflow-hidden ${activeId === faq.id
-                                            ? 'border-sky-500 bg-sky-50/30 shadow-lg shadow-sky-100' // Active State: Sky Blue
-                                            : 'border-slate-100 bg-white hover:border-sky-200 hover:shadow-md'
+                                        ? 'border-sky-500 bg-sky-50/30 shadow-lg shadow-sky-100' // Active State: Sky Blue
+                                        : 'border-slate-100 bg-white hover:border-sky-200 hover:shadow-md'
                                         }`}
                                 >
                                     <button
@@ -127,8 +127,8 @@ const FAQ = () => {
                                             {faq.question}
                                         </span>
                                         <span className={`flex-shrink-0 p-2 rounded-full transition-all duration-300 ${activeId === faq.id
-                                                ? 'bg-sky-500 text-white rotate-180'
-                                                : 'bg-slate-100 text-slate-500 group-hover:bg-sky-100 group-hover:text-sky-500'
+                                            ? 'bg-sky-500 text-white rotate-180'
+                                            : 'bg-slate-100 text-slate-500 group-hover:bg-sky-100 group-hover:text-sky-500'
                                             }`}>
                                             {activeId === faq.id ? <Minus size={20} /> : <Plus size={20} />}
                                         </span>
