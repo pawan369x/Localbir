@@ -132,6 +132,7 @@ const Navbar = ({ onBookClick }) => {
                                     <Link
                                         key={link.name}
                                         to={link.to}
+                                        onClick={() => window.scrollTo(0, 0)}
                                         className="group relative flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300 hover:bg-slate-100/10"
                                     >
                                         <span className={`p-1.5 rounded-full bg-white/10 group-hover:bg-sky-500 group-hover:text-white transition-colors duration-300 ${isTransparent ? 'text-white' : 'text-slate-600 bg-slate-100'}`}>
@@ -207,7 +208,10 @@ const Navbar = ({ onBookClick }) => {
                                 <motion.div key={link.name} variants={linkVars}>
                                     <Link
                                         to={link.to}
-                                        onClick={() => setIsOpen(false)}
+                                        onClick={() => {
+                                            setIsOpen(false);
+                                            window.scrollTo(0, 0);
+                                        }}
                                         className="group flex items-center p-4 rounded-2xl hover:bg-slate-50 transition-colors"
                                     >
                                         <div className="p-3 bg-white border border-slate-100 text-slate-600 rounded-xl shadow-sm group-hover:text-sky-500 group-hover:scale-110 transition-all mr-4">

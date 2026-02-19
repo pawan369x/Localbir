@@ -93,10 +93,10 @@ const LocalGuide = ({ onBookClick }) => {
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1 }}
                             whileHover={{ y: -10 }}
-                            className="bg-white rounded-3xl p-4 shadow-xl shadow-slate-200/50 border border-slate-100 relative overflow-hidden group"
+                            className="bg-white rounded-none p-4 shadow-xl shadow-slate-200/50 border border-slate-100 relative overflow-hidden group"
                         >
                             {/* Image Container */}
-                            <div className="relative h-80 rounded-2xl overflow-hidden mb-6">
+                            <div className="relative h-80 rounded-none overflow-hidden mb-6">
                                 <div className={`absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-10`} />
                                 <img
                                     src={guide.image}
@@ -130,7 +130,7 @@ const LocalGuide = ({ onBookClick }) => {
 
                                 <button
                                     onClick={onBookClick}
-                                    className="w-full py-3 rounded-xl bg-slate-50 text-slate-700 font-bold text-sm hover:bg-sky-50 hover:text-sky-600 transition-colors flex items-center justify-center gap-2 group-hover:shadow-md"
+                                    className="w-full py-3 rounded-none bg-slate-50 text-slate-700 font-bold text-sm hover:bg-sky-50 hover:text-sky-600 transition-colors flex items-center justify-center gap-2 group-hover:shadow-md"
                                 >
                                     Book with {guide.name} <Heart size={16} className="group-hover:fill-sky-500 group-hover:text-sky-500 transition-colors" />
                                 </button>

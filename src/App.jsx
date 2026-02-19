@@ -3,6 +3,7 @@ import { Routes, Route, Outlet } from 'react-router-dom';
 import DirectDialer from './components/DirectDialer';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import ScrollToTop from './components/ScrollToTop';
 
 // --- Lazy Load Pages & Components ---
 const Home = lazy(() => import('./pages/Home'));
@@ -66,23 +67,26 @@ const Layout = () => {
 
 const App = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<Home />} />
-        <Route path="services" element={<ServicesPage />} />
-        <Route path="packages" element={<PackagesPage />} />
-        <Route path="adventures" element={<PackagesPage />} /> {/* Alias */}
-        <Route path="plan-trip" element={<TripPlannerPage />} />
-        <Route path="stays" element={<StaysPage />} />
+    <>
+      <ScrollToTop />
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="services" element={<ServicesPage />} />
+          <Route path="packages" element={<PackagesPage />} />
+          <Route path="adventures" element={<PackagesPage />} /> {/* Alias */}
+          <Route path="plan-trip" element={<TripPlannerPage />} />
+          <Route path="stays" element={<StaysPage />} />
 
-        <Route path="guide" element={<GuidePage />} />
-        <Route path="blog" element={<BlogPage />} />
-        <Route path="blog/:slug" element={<BlogPost />} />
-        <Route path="about" element={<AboutPage />} />
-        {/* Fallback route */}
-        <Route path="*" element={<Home />} />
-      </Route>
-    </Routes>
+          <Route path="guide" element={<GuidePage />} />
+          <Route path="blog" element={<BlogPage />} />
+          <Route path="blog/:slug" element={<BlogPost />} />
+          <Route path="about" element={<AboutPage />} />
+          {/* Fallback route */}
+          <Route path="*" element={<Home />} />
+        </Route>
+      </Routes>
+    </>
   );
 };
 
