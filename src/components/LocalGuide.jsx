@@ -9,6 +9,15 @@ import { MapPin, Compass, Camera, Coffee, Star, ShieldCheck, Heart } from 'lucid
 const LocalGuide = ({ onBookClick }) => {
     const guides = [
         {
+            name: "Abhi",
+            role: "Adventure Expert",
+            exp: "4+ Years Experience",
+            desc: "A true local who knows the valley like the back of his hand. From best cafes to secret waterfalls, he's your guy.",
+            image: "/abhi_new.jpg",
+            specialty: "Local Secrets",
+            color: "bg-emerald-500"
+        },
+        {
             name: "Gourav",
             role: "Senior Local Guide",
             exp: "8+ Years Experience",
@@ -18,13 +27,13 @@ const LocalGuide = ({ onBookClick }) => {
             color: "bg-orange-500"
         },
         {
-            name: "Abhi",
-            role: "Adventure Expert",
-            exp: "4+ Years Experience",
-            desc: "A true local who knows the valley like the back of his hand. From best cafes to secret waterfalls, he's your guy.",
-            image: "/abhi_new.jpg",
-            specialty: "Local Secrets",
-            color: "bg-emerald-500"
+            name: "Deepak",
+            role: "Trekking Guide",
+            exp: "3+ Years Experience",
+            desc: "An enthusiastic guide who loves to explore the rugged terrains and share the beauty of the mountains with travelers.",
+            image: "/deepak.jpg",
+            specialty: "Mountain Trekking",
+            color: "bg-indigo-500"
         },
         {
             name: "Aman",
@@ -75,7 +84,7 @@ const LocalGuide = ({ onBookClick }) => {
                     </motion.p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                     {guides.map((guide, index) => (
                         <motion.div
                             key={index}
