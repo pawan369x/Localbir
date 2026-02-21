@@ -146,7 +146,7 @@ const Footer = ({ onBookClick }) => {
                             <ul className="space-y-6">
                                 <ContactItem
                                     icon={<MapPin size={18} />}
-                                    text="Tibetan Colony, Bir, Himachal Pradesh, 176077"
+                                    text="Bir Billing Landing Site, Village Bir, Distt. Kangra, HP 176077"
                                 />
                                 <ContactItem
                                     icon={<Phone size={18} />}
